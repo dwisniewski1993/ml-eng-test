@@ -13,12 +13,14 @@ ENV PATH="$JAVA_HOME/bin:${PATH}"
 # Ustaw domyślną wersję pip jako pip3
 RUN ln -s -f /usr/bin/pip3 /usr/bin/pip
 
+COPY main.py /main.py
+COPY utils.py /utils.py
+COPY config.py /config.py
 COPY requirements.txt /requirements.txt
 
 RUN pip install -r /requirements.txt
 
 RUN apt-get install tesseract-ocr -y
-RUN apt-get install poppler-utils
+RUN apt-get install poppler-utils -y
 
-# docker build -t mlegtest .
-# docker run -it mlengtest
+CMD python main.py
